@@ -8,12 +8,18 @@ import Box from '@mui/material/Box';
 import { visuallyHidden } from '@mui/utils';
 
 const headCells: readonly HeadCell[] = [
-  {
-    id: 'nombre',
-    numeric: false,
-    disablePadding: true,
-    label: 'Nombre',
-  },
+    {
+        id: 'id',
+        numeric: false,
+        disablePadding: true,
+        label: 'ID',
+    },
+    {
+        id: 'nombre',
+        numeric: false,
+        disablePadding: true,
+        label: 'Nombre',
+    },
     {
         id: 'genero',
         numeric: false,

@@ -8,18 +8,55 @@ import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Checkbox from '@mui/material/Checkbox';
+import Chip from '@mui/material/Chip';
 
 import EnhancedTableToolbar from './TableToolbar';
 import EnhancedTableHead from './TableHead';
 
 import { getComparator } from '../utils/tableUtils';
 
+function chipsGenerosColors(genero: string) {
+  switch (genero) {
+    case 'Acción':
+      return { sx: { backgroundColor: 'rgb(244, 67, 54)', color: '#fff' } }; // Red
+    case 'Aventura':
+      return { sx: { backgroundColor: 'rgb(33, 150, 243)', color: '#fff' } }; // Blue
+    case 'RPG':
+      return { sx: { backgroundColor: 'rgb(156, 39, 176)', color: '#fff' } }; // Purple
+    case 'Deportes':
+      return { sx: { backgroundColor: 'rgb(76, 175, 80)', color: '#fff' } }; // Green
+    case 'Simulación':
+      return { sx: { backgroundColor: 'rgb(255, 193, 7)', color: '#000' } }; // Amber
+    case 'Estrategia':
+      return { sx: { backgroundColor: 'rgb(0, 188, 212)', color: '#fff' } }; // Cyan
+    default:
+      return { sx: { backgroundColor: 'rgb(158, 158, 158)', color: '#fff' } }; // Grey
+  }
+}
+
+function plataformaIcon(plataforma: string) {
+  switch (plataforma) {
+    case 'PC':
+      return <img src="https://img.icons8.com/color/512/windows-10.png" alt="PC" width="20" style={{ marginRight: '4px' }} />;
+    case 'PlayStation':
+      return <img src="https://upload.wikimedia.org/wikipedia/commons/9/91/PlayStation_App_Icon.jpg" alt="PlayStation" width="20" style={{ marginRight: '4px' }} />;
+    case 'Xbox':
+      return <img src="https://static-00.iconduck.com/assets.00/xbox-icon-2048x2048-sg44x0or.png" alt="Xbox" width="20" style={{ marginRight: '4px' }} />;
+    case 'Nintendo Switch':
+      return <img src="https://cdn-icons-png.flaticon.com/512/871/871377.png" alt="Nintendo Switch" width="20" style={{ marginRight: '4px' }} />;
+    case 'Móvil':
+      return <img src="https://developer.android.com/static/guide/practices/ui_guidelines/images/adaptive-icon-mask-applied.png" alt="Móvil" width="20" style={{ marginRight: '4px' }} />;
+    default:
+      return null;
+  }
+}
+
 export default function EnhancedTable({ rows }: { rows: GameData[] }) {
   const [order, setOrder] = React.useState<Order>('asc');
   const [orderBy, setOrderBy] = React.useState<keyof GameData>('nombre');
   const [selected, setSelected] = React.useState<readonly string[]>([]);
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(4);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -114,12 +151,24 @@ export default function EnhancedTable({ rows }: { rows: GameData[] }) {
                         checked={isItemSelected}
                       />
                     </TableCell>
+                    <TableCell
+                      component="th"
+                      sx={{ fontWeight: 'bold' }}
+                    >
+                      {row.id}
+                    </TableCell>
                     <TableCell component="th" id={labelId} scope="row" padding="none">
                       {row.nombre}
                     </TableCell>
-                    <TableCell align="right">{row.genero}</TableCell>
-                    <TableCell align="right">{row.plataforma}</TableCell>
-                    <TableCell align="right">{row.precio}</TableCell>
+                    <TableCell align="right">
+                      <Chip
+                        label={row.genero}
+                        {...chipsGenerosColors(row.genero)}
+                        size="small"
+                      />
+                    </TableCell>
+                    <TableCell align="right">{plataformaIcon(row.plataforma)}</TableCell>
+                    <TableCell align="right">{"$"}{row.precio}</TableCell>
                     <TableCell align="right">{row.stock}</TableCell>
                     <TableCell align="right">
                       <img src={row.imagen} alt={row.nombre} width="50" />
@@ -136,7 +185,7 @@ export default function EnhancedTable({ rows }: { rows: GameData[] }) {
           </Table>
         </TableContainer>
         <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
+          rowsPerPageOptions={[4]}
           component="div"
           count={rows.length}
           rowsPerPage={rowsPerPage}

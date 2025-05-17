@@ -32,6 +32,15 @@ interface EnhancedTableToolbarProps {
   numSelected: number;
 }
 
+type FormState = {
+  nombre: string;
+  genero: string;
+  plataforma: string;
+  precio: string;
+  stock: string;
+  imagen: string;
+};
+
 declare global {
   interface GameData {
     id: string;
@@ -60,4 +69,13 @@ declare global {
   interface EnhancedTableToolbarProps {
     numSelected: number;
   }
+
+  type FormState = {
+    nombre: string;
+    genero: string;
+    plataforma: string;
+    precio: string;
+    stock: string;
+    imagen: string;
+  };
 }
