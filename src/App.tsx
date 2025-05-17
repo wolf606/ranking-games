@@ -1,4 +1,4 @@
-import DataTable from './components/Table'
+import GameList from './components/GamesList'
 import './App.css'
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
   return (
     <>
       <div>
-        <DataTable />
+        <GameList />
       </div>
     </>
   )
