@@ -19,9 +19,6 @@ export default function GamesList() {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
-    
-
-
     useEffect(() => {
     const fetchGames = async () => {
         try {
@@ -51,7 +48,7 @@ export default function GamesList() {
                     onClick={handleOpen}>
                     Agregar Juego
                 </Button>
-                <SearchByName />
+                <SearchByName setRows={setRows} />
             </Stack>
             <EnhancedTable rows={rows} />
             <NewGame open={open} handleClose={handleClose} rows={rows} setRows={setRows} />
