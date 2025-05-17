@@ -1,25 +1,12 @@
 import { useState, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Button, Typography } from '@mui/material';
+import TextField from '@mui/material/TextField';
 import EnhancedTable from './Table';
 import NewGame from './NewGame';
+import SearchByName from './SearchByName';
 import data from '../../server.json';
-
-import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import { styled } from '@mui/material/styles';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: (theme.vars ?? theme).palette.text.secondary,
-  ...theme.applyStyles('dark', {
-    backgroundColor: '#1A2027',
-  }),
-}));
-
 
 const BACKEND_URL = data.BACKEND_URL || 'http://localhost:3000';
 
@@ -31,6 +18,9 @@ export default function GamesList() {
     const [rows, setRows] = useState<GameData[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+
+    
+
 
     useEffect(() => {
     const fetchGames = async () => {
@@ -61,6 +51,7 @@ export default function GamesList() {
                     onClick={handleOpen}>
                     Agregar Juego
                 </Button>
+                <SearchByName />
             </Stack>
             <EnhancedTable rows={rows} />
             <NewGame open={open} handleClose={handleClose} rows={rows} setRows={setRows} />
