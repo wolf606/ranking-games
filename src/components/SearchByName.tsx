@@ -2,10 +2,8 @@ import { useState } from 'react';
 import { Button, Typography, Switch, FormControlLabel } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import GameFoundModal from './GameFound';
-import data from '../../server.json';
+import { BACKEND_URL } from '../config';
 import Stack from '@mui/material/Stack';
-
-const BACKEND_URL = data.BACKEND_URL || 'http://localhost:3000';
 
 export default function SearchByName( { setRows }: { setRows: React.Dispatch<React.SetStateAction<GameData[]>> }) {
     const [searchName, setSearchName] = useState('');

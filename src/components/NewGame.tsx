@@ -14,10 +14,8 @@ import {
 } from '@mui/material';
 
 import type { SelectChangeEvent } from '@mui/material/Select';
-import data from '../../server.json';
 import { generos, plataformas } from '../enums/constants';
-
-const BACKEND_URL = data.BACKEND_URL || 'http://localhost:3000';
+import { BACKEND_URL } from '../config';
 
 const style = {
   position: 'absolute' as const,

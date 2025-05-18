@@ -40,6 +40,10 @@ type FormState = {
   stock: string;
   imagen: string;
 };
+type RankingData = {
+        key: string;
+        value: number;
+    };
 
 declare global {
   interface GameData {
@@ -78,4 +82,8 @@ declare global {
     stock: string;
     imagen: string;
   };
+  type RankingData = {
+          key: string;
+          value: number;
+      };
 }

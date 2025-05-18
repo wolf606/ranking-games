@@ -1,14 +1,13 @@
 import { useState, useEffect } from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
-import { Button, Typography } from '@mui/material';
+import { Button, Typography, Tabs, Tab, Box } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import EnhancedTable from './Table';
 import NewGame from './NewGame';
+import RankingTable from './RankingTable';
 import SearchByName from './SearchByName';
-import data from '../../server.json';
+import { BACKEND_URL } from '../config';
 import Stack from '@mui/material/Stack';
-
-const BACKEND_URL = data.BACKEND_URL || 'http://localhost:3000';
 
 export default function GamesList() {
     
@@ -18,6 +17,9 @@ export default function GamesList() {
     const [rows, setRows] = useState<GameData[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
+    const [tab, setTab] = useState(0);
+
+    const [ranking, setRanking] = useState<RankingData[]>([]);
 
     useEffect(() => {
     const fetchGames = async () => {
@@ -36,12 +38,26 @@ export default function GamesList() {
         fetchGames();
     }, []);
 
+    useEffect(() => {
+        const fetchRanking = async () => {
+            try {
+                const response = await fetch(`${BACKEND_URL}/juegos/ranking`);
+                if (!response.ok) throw new Error('Error fetching ranking');
+                const data = await response.json();
+                setRanking(data);
+            } catch (err: any) {
+                setError(err.message);
+            }
+        };
+        fetchRanking();
+    }, [tab]);
+
     if (loading) return <CircularProgress />;
     if (error) return <Typography color="error">Error: {error}</Typography>;
 
     return (
         <div>
-            <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2} sx={{ mb: 2 }}>
                 <Button 
                     variant="contained" 
                     color="primary"
@@ -50,7 +66,14 @@ export default function GamesList() {
                 </Button>
                 <SearchByName setRows={setRows} />
             </Stack>
-            <EnhancedTable rows={rows} />
+            <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 2 }}>
+                <Tabs value={tab} onChange={(_, v) => setTab(v)}>
+                    <Tab label="Todos los Juegos" />
+                    <Tab label="Ranking" />
+                </Tabs>
+            </Box>
+            {tab === 0 && <EnhancedTable rows={rows} />}
+            {tab === 1 && <RankingTable rows={rows} ranking={ranking} />}
             <NewGame open={open} handleClose={handleClose} rows={rows} setRows={setRows} />
         </div>
     );
