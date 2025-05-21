@@ -3,7 +3,7 @@ export const generos = [
   'Aventura',
   'RPG',
   'Deportes',
-  'Simulación',
+  'Sandbox',
   'Estrategia',
 ];
 

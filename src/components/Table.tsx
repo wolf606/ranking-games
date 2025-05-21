@@ -25,7 +25,7 @@ function chipsGenerosColors(genero: string) {
       return { sx: { backgroundColor: 'rgb(156, 39, 176)', color: '#fff' } }; // Purple
     case 'Deportes':
       return { sx: { backgroundColor: 'rgb(76, 175, 80)', color: '#fff' } }; // Green
-    case 'Simulación':
+    case 'Sandbox':
       return { sx: { backgroundColor: 'rgb(255, 193, 7)', color: '#000' } }; // Amber
     case 'Estrategia':
       return { sx: { backgroundColor: 'rgb(0, 188, 212)', color: '#fff' } }; // Cyan
